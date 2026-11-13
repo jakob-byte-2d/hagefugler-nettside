@@ -5,6 +5,10 @@
 -- og hver versjon har sitt eget mål på 100 kortstokker. Kjøres fila der versjon 1 allerede
 -- ligger, flyttes påmeldingene over, og skjemaet fra versjon 1 virker fortsatt i overgangen.
 --
+-- Versjon 3 (november 2026): skjemaet på hagefugler.no spør ikke lenger om adressen. Den spørres om
+-- på e-post når det blir trykk. Kolonnen mangler_adresse i vipps_krav viser hvem du må spørre.
+-- Skjemaet på fuglekort.no sender fortsatt adressen, og det virker som før.
+--
 -- Nettsiden (publishable key, rollen anon) kan bare legge inn påmeldinger og lese tellertallene.
 -- Navn, e-post, mobil og adresse kan ikke leses fra nettsiden. Du ser dem i Table Editor (vipps_krav).
 
@@ -25,11 +29,11 @@ create table if not exists public.forhandsbestillinger (
   samtykke               boolean not null check (samtykke),
   status                 text not null default 'venter' check (status in ('venter', 'betalt', 'sendt', 'trukket')),
   merknad                text,                                                         -- til deg selv, f.eks. «bare foto trykket»
-  constraint adresse_ved_post check (
-    levering = 'hent' or (adresse is not null and postnummer is not null and poststed is not null)
-  ),
   constraint minst_en_kortstokk check (antall_foto + antall_illustrasjoner >= 1)
 );
+
+-- Versjon 3: adressen er ikke lenger påkrevd ved post. Den spørres om når det blir trykk.
+alter table public.forhandsbestillinger drop constraint if exists adresse_ved_post;
 
 -- Fra versjon 1 (ett antall og én versjon per påmelding) til antall per versjon
 alter table public.forhandsbestillinger
@@ -147,6 +151,7 @@ select
   antall_foto,
   antall_illustrasjoner,
   case levering when 'post' then 'Post' else 'Hente selv' end as levering,
+  (levering = 'post' and adresse is null) as mangler_adresse,   -- spør om adressen når det blir trykk
   antall_foto * 199 as belop_foto,
   antall_illustrasjoner * 199 as belop_illustrasjoner,
   case levering when 'post' then 69 else 0 end as frakt,

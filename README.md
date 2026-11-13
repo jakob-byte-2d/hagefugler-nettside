@@ -40,8 +40,13 @@ DNS for hagefugler.no hos registraren: A-poster for `@` til 185.199.108.153, 185
 
 Folk setter seg på listen i bestillingsdialogen på forsiden uten å betale. hagefugler.no og fuglekort.no bruker samme Supabase-prosjekt og samme tabell, så alle påmeldinger havner i én liste og telleren er felles. SQL-fila trenger ikke kjøres på nytt for hagefugler.no. Pris, frakt og mål står øverst i den nye delen av `app.js` (`PRICE`, `SHIPPING`, `GOAL`, `MAX`) og i vilkårene og SQL-fila (visningen `vipps_krav`). Endrer du dem, endrer du alle tre stedene.
 
+Skjemaet spør bare om navn, e-post, mobil, antall og levering. Adressen spør du om på e-post når det blir trykk (se `mangler_adresse` i `vipps_krav`). Det krever versjon 3 av SQL-fila: kjør den på nytt, eller bare `alter table public.forhandsbestillinger drop constraint if exists adresse_ved_post;`, før endringen publiseres. Ellers avvises påmeldinger med post.
+
+Tellerne vises på forsiden, i bestillingsdialogen og på takkeskjermen, men bare for en versjon med minst `SHOW_FROM` (25) bestilte kortstokker, så ingen ser «3 av 100» og tror at ingen vil ha esken. Fra halvveis teller de ned («64 bestilt · 36 igjen»). Under terskelen står det «Du er blant de første på listen» på takkeskjermen. Vilkårene nevner 25; endrer du `SHOW_FROM`, endre dem også.
+
 - **Oppsett:** Supabase → SQL Editor → lim inn `supabase/forhandsbestillinger.sql` → Run. Må gjøres før endringen publiseres, ellers virker ikke skjemaet. Fila kan kjøres på nytt, og flytter påmeldinger fra den første versjonen (ett antall og én versjon) over til antall per versjon.
-- **Se lista:** Supabase → Table Editor → `vipps_krav`. Viser navn, mobil, antall av hver versjon, levering, beløp per versjon (antall × 199 kr), frakt (69 kr ved post), `belop_begge` og adresse.
+- **Se lista:** Supabase → Table Editor → `vipps_krav`. Viser navn, mobil, antall av hver versjon, levering, `mangler_adresse`, beløp per versjon (antall × 199 kr), frakt (69 kr ved post), `belop_begge` og adresse.
+- **Adresser ved trykk:** de med `mangler_adresse` = true skal ha kortene i posten, men har ikke gitt adresse. Spør dem på e-post sammen med beskjeden om trykk, og legg adressen inn i tabellen `forhandsbestillinger`.
 - **Mål:** 100 kortstokker per versjon. Én påmelding kan ha begge versjonene, opptil 20 av hver.
 - **Vipps-krav:** send betalingsforespørsel fra Vipps' bedriftsportal til mobilnummeret. Blir begge versjonene trykket, bruk `belop_begge`. Blir bare én trykket, bruk beløpet for den versjonen + `frakt`.
 - **Status:** endre `status` i tabellen `forhandsbestillinger` til `betalt`, `sendt` eller `trukket`. Trukne påmeldinger telles ikke med.

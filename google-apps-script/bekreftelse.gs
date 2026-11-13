@@ -33,7 +33,6 @@ function testEpost() {
   sendBekreftelse({
     navn: 'Kari Nordmann', epost: KONTAKT, mobil: '91234567',
     antall_foto: 1, antall_illustrasjoner: 2, levering: 'post',
-    adresse: 'Fuglevei 1', postnummer: '0880', poststed: 'Oslo',
   });
 }
 
@@ -45,9 +44,12 @@ function lagEpost(r) {
   if (foto) varer.push(['Ekte bilder', `${foto} × ${kr(PRIS)}`, kr(foto * PRIS)]);
   if (teg) varer.push(['Tegneseriefugler', `${teg} × ${kr(PRIS)}`, kr(teg * PRIS)]);
   const fraktRad = post ? ['Frakt', 'Sendes i posten', kr(FRAKT)] : ['Henting i Oslo', 'Ingen frakt', kr(0)];
-  const levering = post
-    ? `Sendes til ${r.adresse}, ${r.postnummer} ${r.poststed}.`
-    : 'Hentes i Oslo. Tid og sted avtaler vi på e-post.';
+  // hagefugler.no spør ikke om adressen ved påmelding (den spørres om når det blir trykk); fuglekort.no gjør det fortsatt
+  const levering = !post
+    ? 'Hentes i Oslo. Tid og sted avtaler vi på e-post.'
+    : r.adresse
+      ? `Sendes til ${r.adresse}, ${r.postnummer} ${r.poststed}.`
+      : 'Sendes i posten. Adressen spør vi om på e-post når vi vet at det blir trykk.';
   const hvis = foto && teg ? 'Hvis begge versjonene blir trykket.' : 'Hvis kortene blir trykket.';
   const videre = [
     'Du betaler ingenting nå.',
