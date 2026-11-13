@@ -41,6 +41,6 @@
 /* Skille mellom toppen og smakebiten, med mindre luft */
 .section-line{border:0;border-top:1px solid var(--line);margin:0 5.4%;height:0}.hero{padding-bottom:40px}.section-line+.collection{padding-top:56px}
 @media(max-width:760px){.section-line{margin:0 6%}.hero{padding-bottom:30px}.section-line+.collection{padding-top:34px}}
-/* «Slik ser kortene ut»: bilder av de fysiske kortene og et sitat */
+/* «Slik ser de ut»: bilder av de fysiske kortene og et sitat */
 .photo-pair{display:flex;gap:12px;align-items:flex-start;margin:4px 0 0}.photo-pair img{display:block;width:100%;height:auto;min-width:0;border-radius:8px;background:#e9e4d4}.photo-wide{flex:2.048 1 0}.photo-square{flex:1 1 0}.photo-quote{margin:26px 0 4px}.photo-quote blockquote{margin:0}.photo-quote blockquote p{font:italic 400 28px/1.25 Georgia,'Times New Roman',serif;letter-spacing:-.4px;color:var(--ink);margin:0}.photo-quote figcaption{font-size:12px;color:var(--muted);margin-top:8px}
 @media(max-width:760px){.photo-pair{flex-direction:column;gap:10px}.photo-wide,.photo-square{flex:none}.photo-quote{margin-top:20px}.photo-quote blockquote p{font-size:24px}}

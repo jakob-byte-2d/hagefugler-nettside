@@ -5,10 +5,10 @@ let cards=[],current=0;
 const editionNames={photos:'Ekte bilder',illustrations:'Tegneseriefugler'};
 function showDialog(el){if(!el.open){el.showModal();document.body.classList.add('modal-open')}}
 function showCard(i){if(!cards.length)return;current=(i+cards.length)%cards.length;const c=cards[current];document.querySelector('#large-card').src=c.image;document.querySelector('#large-card').alt=`${c.name} – ${editionNames[box.edition]}`;document.querySelector('#card-counter').textContent=`${c.name} · ${String(current+1).padStart(2,'0')} / ${cards.length} · ${editionNames[box.edition]}`;showDialog(viewer)}
-box.addEventListener('cards-ready',e=>{cards=e.detail.slice(0,5);const rail=document.querySelector('#card-rail');rail.replaceChildren();cards.forEach((c,i)=>{const b=document.createElement('button');b.className='card-tile';b.setAttribute('aria-label',`Se kortet for ${c.name}`);b.innerHTML=`<img src="${c.image}" alt="${c.name}" loading="lazy" width="${c.width}" height="${c.height}"><span class="card-label"><span>${c.name}</span><small>${c.number} ↗</small></span>`;b.addEventListener('click',()=>showCard(i));rail.append(b)});
+box.addEventListener('cards-ready',e=>{cards=e.detail.slice(0,5);const rail=document.querySelector('#card-rail');rail.replaceChildren();cards.forEach((c,i)=>{const b=document.createElement('button');b.className='card-tile';b.setAttribute('aria-label',`Se ${c.name}`);b.innerHTML=`<img src="${c.image}" alt="${c.name}" loading="lazy" width="${c.width}" height="${c.height}"><span class="card-label"><span>${c.name}</span><small>${c.number} ↗</small></span>`;b.addEventListener('click',()=>showCard(i));rail.append(b)});
  const label=editionNames[box.edition];
  document.querySelectorAll('[data-edition]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.edition===box.edition)));
- document.querySelector('#edition-note').textContent=`${label} · 5 kort fra kortstokken`;
+ document.querySelector('#edition-note').textContent=`${label} · 5 fugler fra esken`;
  if(viewer.open)showCard(current);
 });
 document.querySelectorAll('[data-edition]').forEach(b=>b.addEventListener('click',()=>box.setEdition(b.dataset.edition)));
@@ -72,7 +72,7 @@ function validate(f){const v=k=>f.elements[k].value.trim(),post=delivery()==='po
  if(v('navn').length<2)return['navn','Skriv inn navnet ditt.'];
  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('epost')))return['epost','Skriv inn en gyldig e-postadresse.'];
  if(!/^[49]\d{7}$/.test(phone(v('mobil'))))return['mobil','Skriv inn et norsk mobilnummer med 8 siffer.'];
- if(post&&v('adresse').length<3)return['adresse','Skriv inn adressen kortene skal sendes til.'];
+ if(post&&v('adresse').length<3)return['adresse','Skriv inn adressen vi skal sende til.'];
  if(post&&!/^\d{4}$/.test(v('postnummer')))return['postnummer','Postnummeret skal ha 4 siffer.'];
  if(post&&v('poststed').length<2)return['poststed','Skriv inn poststedet.'];
  if(!f.elements.samtykke.checked)return['samtykke','Du må godta vilkårene og Vipps-forespørselen for å sette deg på listen.'];
@@ -81,7 +81,7 @@ function showError(msg,field){formError.textContent=msg;formError.hidden=false;i
 function clearError(){formError.hidden=true;form.querySelectorAll('[aria-invalid]').forEach(el=>el.removeAttribute('aria-invalid'))}
 form.addEventListener('input',e=>{if(e.target.getAttribute('aria-invalid')){e.target.removeAttribute('aria-invalid');formError.hidden=true}});
 function showDone(d){const post=d.levering==='post',c={photos:d.antall_foto,illustrations:d.antall_illustrasjoner},n=c.photos+c.illustrations,both=c.photos&&c.illustrations;
- document.querySelector('#done-summary').textContent=`${decks(n)}: ${chosen(c)}, ${post?'sendes i posten':'hentes i Oslo'}. Blir ${both?'begge versjonene':'kortene'} trykket, er prisen ${kr(n*PRICE+(post?SHIPPING:0))}${post?' med frakt':''}.`;
+ document.querySelector('#done-summary').textContent=`${decks(n)}: ${chosen(c)}, ${post?'sendes i posten':'hentes i Oslo'}. Blir ${both?'begge versjonene trykket':'det trykk'}, er prisen ${kr(n*PRICE+(post?SHIPPING:0))}${post?' med frakt':''}.`;
  document.querySelector('#order-start').hidden=true;const done=document.querySelector('#order-done');done.hidden=false;done.focus();order.scrollTop=0}
 document.querySelector('#order-again').addEventListener('click',()=>{form.reset();startCounts();clearError();document.querySelector('#order-done').hidden=true;document.querySelector('#order-start').hidden=false;form.elements.navn.focus()});
 
@@ -100,7 +100,7 @@ form.addEventListener('submit',async e=>{e.preventDefault();clearError();
  catch(x){showError('Fikk ikke kontakt. Sjekk nettet og prøv igjen.')}
  finally{submit.disabled=false;submit.firstChild.textContent='Sett meg på listen '}});
 
-/* «Mer om kortene»: lenker til et lukket felt (for eksempel #kilder i bunnteksten) åpner feltet */
+/* «Mer om Hagefugler»: lenker til et lukket felt (for eksempel #kilder i bunnteksten) åpner feltet */
 function openDetails(id){const d=id&&document.getElementById(id);if(d&&d.tagName==='DETAILS'){d.open=true;return d}return null}
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>openDetails(a.getAttribute('href').slice(1))));
 addEventListener('hashchange',()=>openDetails(location.hash.slice(1)));

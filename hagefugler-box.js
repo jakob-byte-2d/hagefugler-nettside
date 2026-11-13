@@ -74,7 +74,7 @@ class HagefuglerBox extends HTMLElement {
     @media(max-width:600px){.contact{width:calc(176px*var(--fit,1));height:calc(24px*var(--fit,1));top:calc(50% + 140px*var(--fit,1))}:host([realisme]) .opened .contact{top:calc(50% + 152px*var(--fit,1))}:host([no-picker]) .contact{top:calc(50% + 96px*var(--fit,1))}:host([realisme][no-picker]) .opened .contact{top:calc(50% + 112px*var(--fit,1))}}
 
     </style>
-    <div class="edition-picker" role="group" aria-label="Velg kortversjon"><button data-edition="photos" aria-pressed="true">Ekte bilder</button><button data-edition="illustrations" aria-pressed="false">Tegneseriefugler</button></div><div class="wrap"><div class="stage" tabindex="0" role="group" aria-label="Interaktiv korteske. Dra eller bruk piltastene for å rotere. Enter åpner esken."><div class="halo"></div><div class="shadow"></div><div class="contact"></div><div class="rig"><div class="box"><div class="inside"></div><div class="wall-in wall-in-front"></div><div class="wall-in wall-in-left"></div><div class="wall-in wall-in-right"></div><div class="rim rim-front"></div><div class="rim rim-back"></div><div class="rim rim-left"></div><div class="rim rim-right"></div><div class="flap flap-left"></div><div class="flap flap-right"></div><div class="deck"><div class="stack" aria-hidden="true"><div class="stack-face stack-front"></div><div class="stack-face stack-back"></div><div class="stack-face stack-top"></div><div class="stack-face stack-bottom"></div><div class="stack-face stack-left"></div><div class="stack-face stack-right"></div></div></div><div class="face back"></div><div class="face left side"></div><div class="face right side"></div><div class="face bottom"></div><div class="face front"></div><div class="hinge"><div class="lid"><div class="lid-surface lid-outside"></div><div class="lid-surface lid-inside"></div><div class="tuck"><div class="tuck-surface tuck-outside"></div><div class="tuck-surface tuck-inside"></div></div></div></div></div></div><p class="hint">DRA FOR Å ROTERE · TRYKK FOR Å SE INNHOLDET</p></div><div class="tools"><button class="primary toggle" aria-expanded="false"><span>↗</span><span class="label">Åpne esken</span></button><button class="inspect">Se smakebiten <span>→</span></button><button class="reset" aria-label="Tilbakestill vinkel"><span class="rotate">↻</span> Nullstill</button></div></div>`;
+    <div class="edition-picker" role="group" aria-label="Velg versjon"><button data-edition="photos" aria-pressed="true">Ekte bilder</button><button data-edition="illustrations" aria-pressed="false">Tegneseriefugler</button></div><div class="wrap"><div class="stage" tabindex="0" role="group" aria-label="Interaktiv eske. Dra eller bruk piltastene for å rotere. Enter åpner esken."><div class="halo"></div><div class="shadow"></div><div class="contact"></div><div class="rig"><div class="box"><div class="inside"></div><div class="wall-in wall-in-front"></div><div class="wall-in wall-in-left"></div><div class="wall-in wall-in-right"></div><div class="rim rim-front"></div><div class="rim rim-back"></div><div class="rim rim-left"></div><div class="rim rim-right"></div><div class="flap flap-left"></div><div class="flap flap-right"></div><div class="deck"><div class="stack" aria-hidden="true"><div class="stack-face stack-front"></div><div class="stack-face stack-back"></div><div class="stack-face stack-top"></div><div class="stack-face stack-bottom"></div><div class="stack-face stack-left"></div><div class="stack-face stack-right"></div></div></div><div class="face back"></div><div class="face left side"></div><div class="face right side"></div><div class="face bottom"></div><div class="face front"></div><div class="hinge"><div class="lid"><div class="lid-surface lid-outside"></div><div class="lid-surface lid-inside"></div><div class="tuck"><div class="tuck-surface tuck-outside"></div><div class="tuck-surface tuck-inside"></div></div></div></div></div></div><p class="hint">DRA FOR Å ROTERE · TRYKK FOR Å SE INNHOLDET</p></div><div class="tools"><button class="primary toggle" aria-expanded="false"><span>↗</span><span class="label">Åpne esken</span></button><button class="inspect">Se smakebiten <span>→</span></button><button class="reset" aria-label="Tilbakestill vinkel"><span class="rotate">↻</span> Nullstill</button></div></div>`;
     const $=s=>this.shadowRoot.querySelector(s);this.$=$;
     this.shadowRoot.querySelectorAll('[data-edition]').forEach(b=>b.addEventListener('click',()=>this.setEdition(b.dataset.edition)));
     $('.toggle').addEventListener('click',()=>this.toggle());$('.reset').addEventListener('click',()=>{this.rx=-12;this.ry=-27;this.paint()});$('.inspect').addEventListener('click',()=>this.inspect(this.index));
@@ -90,7 +90,7 @@ class HagefuglerBox extends HTMLElement {
     try{
       this.catalog=(await fetch(asset('cards.json')).then(r=>{if(!r.ok)throw Error('cards');return r.json()})).slice(0,5).map(c=>({...c,variants:Object.fromEntries(Object.entries(c.variants).map(([key,path])=>[key,new URL(path,ROOT).href]))}));
       this.setEdition(this.edition);
-    }catch(e){$('.hint').textContent='Kortene kunne ikke lastes. Last siden på nytt.'}
+    }catch(e){$('.hint').textContent='Fuglene kunne ikke lastes. Last siden på nytt.'}
 
   }
   setEdition(edition){
@@ -163,7 +163,7 @@ class HagefuglerBox extends HTMLElement {
     const wrap=this.$('.wrap'),button=this.$('.toggle');
     button.disabled=true;button.setAttribute('aria-expanded',next);
     this.$('.label').textContent=next?'Lukk esken':'Åpne esken';
-    this.$('.hint').textContent=next?'ÅPNER ESKEN …':'LEGGER KORTENE TILBAKE …';
+    this.$('.hint').textContent=next?'ÅPNER ESKEN …':'LEGGER FUGLENE TILBAKE …';
     if(next){
       this.rx=-19;this.ry=-25;this.paint();wrap.classList.add('opened');
       await this.animateLid(1);
@@ -176,7 +176,7 @@ class HagefuglerBox extends HTMLElement {
       wrap.classList.remove('opened');
     }
     this.busy=false;button.disabled=false;
-    this.$('.hint').textContent=next?'TRYKK PÅ ET KORT FOR Å SE SMAKEBITEN':'DRA FOR Å ROTERE · TRYKK FOR Å SE INNHOLDET';
+    this.$('.hint').textContent=next?'TRYKK PÅ EN FUGL FOR Å SE SMAKEBITEN':'DRA FOR Å ROTERE · TRYKK FOR Å SE INNHOLDET';
   }
   disconnectedCallback(){this.phaseTimers.forEach(clearTimeout);if(this.lidFrame!==null)cancelAnimationFrame(this.lidFrame);if(this.lightFrame)cancelAnimationFrame(this.lightFrame)}
   setCards(index){if(!this.cards.length)return;this.index=index;this.shadowRoot.querySelectorAll('.card').forEach(c=>c.remove());[1,2,0].forEach((offset,slot)=>{let i=(index+offset)%this.cards.length,c=this.cards[i];let b=document.createElement('div');b.className='card';b.dataset.index=i;b.dataset.slot=slot;b.innerHTML=`<div class="card-face card-front"><img src="${c.image}" alt="${c.name}" draggable="false"></div><div class="card-face card-back" aria-hidden="true"></div>`;this.$('.deck').append(b)})}
