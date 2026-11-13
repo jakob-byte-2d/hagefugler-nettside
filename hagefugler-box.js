@@ -179,7 +179,7 @@ class HagefuglerBox extends HTMLElement {
     this.$('.hint').textContent=next?'TRYKK PÅ ET KORT FOR Å SE SMAKEBITEN':'DRA FOR Å ROTERE · TRYKK FOR Å SE INNHOLDET';
   }
   disconnectedCallback(){this.phaseTimers.forEach(clearTimeout);if(this.lidFrame!==null)cancelAnimationFrame(this.lidFrame);if(this.lightFrame)cancelAnimationFrame(this.lightFrame)}
-  setCards(index){if(!this.cards.length)return;this.index=index;this.shadowRoot.querySelectorAll('.card').forEach(c=>c.remove());[1,2,0].forEach((offset,slot)=>{let i=(index+offset)%this.cards.length,c=this.cards[i];let b=document.createElement('div');b.className='card';b.dataset.index=i;b.dataset.slot=slot;b.innerHTML=`<div class="card-face card-front"><img src="${c.image}" alt="Kort: ${c.name}" draggable="false"></div><div class="card-face card-back" aria-hidden="true"></div>`;this.$('.deck').append(b)})}
+  setCards(index){if(!this.cards.length)return;this.index=index;this.shadowRoot.querySelectorAll('.card').forEach(c=>c.remove());[1,2,0].forEach((offset,slot)=>{let i=(index+offset)%this.cards.length,c=this.cards[i];let b=document.createElement('div');b.className='card';b.dataset.index=i;b.dataset.slot=slot;b.innerHTML=`<div class="card-face card-front"><img src="${c.image}" alt="${c.name}" draggable="false"></div><div class="card-face card-back" aria-hidden="true"></div>`;this.$('.deck').append(b)})}
   inspect(index){this.dispatchEvent(new CustomEvent('inspect-card',{detail:{index,cards:this.cards},bubbles:true,composed:true}))}
 }
 customElements.define('hagefugler-box',HagefuglerBox);

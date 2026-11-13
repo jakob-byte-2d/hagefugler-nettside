@@ -102,7 +102,7 @@ ${eyebrow('BESTILLINGSLISTEN')}
 <td width="84" valign="middle" style="padding:0 18px 14px 0"><img src="${SIDE}/assets/box-front.webp" width="66" alt="Hagefugler-esken" style="display:block;width:66px;height:auto;border:0;font:11px/1.3 Arial,Helvetica,sans-serif;color:#6d756a"></td>
 <td valign="middle" style="padding:0 0 14px">
 <p style="margin:0 0 4px;font:600 17px/1.3 ${SANS};color:${INK}">Hagefugler</p>
-<p style="margin:0;font:13px/1.5 ${SANS};color:${MUTED}">55 kort i illustrert eske.<br><strong style="color:${INK}">199 kr</strong> per kortstokk</p>
+<p style="margin:0;font:13px/1.5 ${SANS};color:${MUTED}">50 fugler og noen bonusdyr i illustrert eske.<br><strong style="color:${INK}">199 kr</strong> per kortstokk</p>
 </td></tr></table>
 ${eyebrow('DETTE HAR DU MELDT DEG PÅ')}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid ${LINE}">
