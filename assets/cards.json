@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Kjøttmeis",
+    "number": "001",
+    "image": "assets/001_Kjottmeis-photos.webp",
+    "variants": {
+      "photos": "assets/001_Kjottmeis-photos.webp",
+      "illustrations": "assets/001_Kjottmeis-illustrations.webp"
+    },
+    "width": 751,
+    "height": 1051
+  },
+  {
+    "name": "Blåmeis",
+    "number": "002",
+    "image": "assets/002_Blameis-photos.webp",
+    "variants": {
+      "photos": "assets/002_Blameis-photos.webp",
+      "illustrations": "assets/002_Blameis-illustrations.webp"
+    },
+    "width": 751,
+    "height": 1051
+  },
+  {
+    "name": "Svarttrost",
+    "number": "003",
+    "image": "assets/003_Svarttrost-photos.webp",
+    "variants": {
+      "photos": "assets/003_Svarttrost-photos.webp",
+      "illustrations": "assets/003_Svarttrost-illustrations.webp"
+    },
+    "width": 751,
+    "height": 1051
+  },
+  {
+    "name": "Linerle",
+    "number": "004",
+    "image": "assets/004_Linerle-photos.webp",
+    "variants": {
+      "photos": "assets/004_Linerle-photos.webp",
+      "illustrations": "assets/004_Linerle-illustrations.webp"
+    },
+    "width": 751,
+    "height": 1051
+  },
+  {
+    "name": "Grønnfink",
+    "number": "006",
+    "image": "assets/006_Gronnfink-photos.webp",
+    "variants": {
+      "photos": "assets/006_Gronnfink-photos.webp",
+      "illustrations": "assets/006_Gronnfink-illustrations.webp"
+    },
+    "width": 751,
+    "height": 1051
+  }
+]

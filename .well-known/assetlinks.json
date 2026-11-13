@@ -1,0 +1,15 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "no.fuglekort.hagefugler",
+      "sha256_cert_fingerprints": [
+        "33:29:8E:12:D1:A0:77:0C:18:1D:D0:97:AD:29:AF:4A:29:0C:25:15:9F:DB:56:73:B0:B2:7A:8A:DB:E2:D1:DB",
+        "7C:E7:3F:EB:65:A4:37:12:C2:B3:82:DC:02:E6:41:DE:F3:41:29:4D:D1:E0:15:4E:01:ED:FB:51:44:C0:BE:8E",
+        "14:B4:61:BA:74:D6:FF:E1:DE:95:65:43:30:57:FA:67:03:5F:50:D2:47:3E:BD:4F:9D:47:2F:C8:A8:02:D6:DF",
+        "0F:5C:E9:86:A5:83:0E:D6:49:03:68:CB:E3:09:41:F5:0F:D6:0A:55:6D:8D:E6:BA:DC:9E:24:3A:AC:AB:FE:90"
+      ]
+    }
+  }
+]

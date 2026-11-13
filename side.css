@@ -1,0 +1,28 @@
+/* hagefugler.no: personvernerklæringen, i samme stil som forsiden (style.css). Bare systemfonter, ingenting utenfra. */
+:root{--paper:#f6f3e9;--ink:#16343b;--muted:#5f6a5f;--orange:#ce603a;--line:#dcded0;--soft:#e9eddf}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+.topp{max-width:760px;margin:0 auto;padding:26px 16px 0;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.wordmark{font-size:25px;letter-spacing:-1.4px;font-weight:800;color:var(--ink);text-decoration:none}
+.brand-dot{color:var(--orange)}
+.topp a.til-appen{font-size:13px;border:1px solid #bac3b4;border-radius:30px;padding:9px 16px;color:var(--ink);text-decoration:none;font-weight:400}
+main{max-width:760px;margin:0 auto;padding:26px 16px 64px}
+h1,h2{font-family:Georgia,'Times New Roman',serif;font-weight:400;letter-spacing:-.5px}
+h1{font-size:clamp(32px,6vw,46px);line-height:1.1;margin:0 0 8px}
+h2{font-size:26px;line-height:1.2;margin:40px 0 10px;scroll-margin-top:16px}
+h3{font-size:16px;margin:22px 0 4px}
+p,li{margin:0 0 10px}
+ul,ol{padding-left:22px;margin:0 0 12px}
+a{color:var(--ink);font-weight:600;text-decoration:underline;text-decoration-color:var(--orange);text-underline-offset:3px}
+a:hover{color:var(--orange)}
+a:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+.liten{font-size:13px;color:var(--muted)}
+.kort{background:var(--soft);padding:16px 18px;margin:18px 0}
+.tabell{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0 16px}
+.tabell th,.tabell td{text-align:left;vertical-align:top;padding:10px 8px;border-bottom:1px solid var(--line)}
+.tabell th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+@media (max-width:560px){.tabell thead{display:none}.tabell,.tabell tbody,.tabell tr,.tabell td{display:block;width:100%}
+  .tabell tr{border-bottom:1px solid var(--line);padding:8px 0}.tabell td{border:0;padding:3px 0}
+  .tabell td:first-child{font-weight:700}.tabell td[data-t]::before{content:attr(data-t) ": ";color:var(--muted);font-weight:600}}
+footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line)}
