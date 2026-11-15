@@ -13,10 +13,10 @@
 <header class="topp"><a class="wordmark" href="/" aria-label="hagefugler.no, forsiden">hagefugler<span class="brand-dot">.no</span></a><a class="til-appen" href="/app/">Åpne appen →</a></header>
 <main>
   <h1>Personvernerklæring for Hagefugler og hagefugler.no</h1>
-  <p class="liten">Sist endret 13. november 2026</p>
+  <p class="liten">Sist endret 15. november 2026</p>
 
   <div class="kort">
-    <p><b>Kort fortalt:</b> Appen virker uten konto, og det du registrerer, lagres på telefonen din. Bare hvis du slår på deling, sendes noe til databasen bak ledertavlen. Brukernavnet og tallene dine står da på en åpen ledertavle. Appen ber aldri om navn, e-post, telefonnummer eller posisjon, og det er ingen reklame, sporing eller analyseverktøy i appen. Du kan slette alt du har delt, når du vil.</p>
+    <p><b>Kort fortalt:</b> Appen virker uten konto, og det du registrerer, lagres på telefonen din. Bare hvis du slår på deling, sendes noe til databasen bak ledertavlen. Brukernavnet og tallene dine står da på en åpen ledertavle. Slår du på varsler, lagres en varsel-adresse for telefonen, se <a href="#varsler">Varsler</a>. Appen ber aldri om navn, e-post, telefonnummer eller posisjon, og det er ingen reklame, sporing eller analyseverktøy i appen. Du kan slette alt du har delt, når du vil.</p>
     <p>Setter du deg på bestillingslisten for kortstokken på hagefugler.no, lagrer vi navn, e-post, mobilnummer og eventuelt adresse. Se <a href="#bestillingslisten">Bestillingslisten for kortstokken</a>.</p>
   </div>
 
@@ -24,7 +24,7 @@
   <p>Hagefugler er appen på Google Play og nettversjonene på hagefugler.no/app, fuglekort.no/app og jakob-byte-2d.github.io/fuglekort. Den lages av Jakob Myking, som er behandlingsansvarlig. Bestillingslisten for kortstokken drives av enkeltpersonforetaket Jakob Myking (org.nr. 938 664 641). Kontakt: <a href="mailto:post.fuglekort@gmail.com">post.fuglekort@gmail.com</a>.</p>
 
   <h2 id="uten-deling">Når du ikke deler</h2>
-  <p>Observasjonene dine, tellingene, frøene, kjøpene i Frøbutikken, livslisten, favorittene, innstillingene og eventuelle andre brukere på telefonen lagres bare i lageret på telefonen. Ingenting av det sendes til oss.</p>
+  <p>Observasjonene dine, tellingene, frøene, kjøpene i Frøbutikken, livslisten, favorittene, innstillingene og eventuelle andre brukere på telefonen lagres bare i lageret på telefonen. Ingenting av det sendes til oss. Varsler er et unntak, se <a href="#varsler">Varsler</a>.</p>
   <p>Avinstallerer du appen, eller sletter du nettstedsdataene, forsvinner dataene fra telefonen. Vil du ta vare på dem, tar du en sikkerhetskopi først: Min fugleliste → Profil → Lagring.</p>
   <p>Når appen og sidene lastes ned, ser GitHub, som driver nettstedet, IP-adressen din, slik alle nettsteder gjør (se <a href="#databehandlere">Hvem som behandler dataene for oss</a>).</p>
 
@@ -47,6 +47,19 @@
     </tbody>
   </table>
   <p>Favorittene dine lagres ikke hos oss. Lista sendes bare med når tavla for favorittene hentes. Et brukernavn som er sperret etter rapporter, lagres uten kobling til noen, så det ikke kan tas i bruk igjen.</p>
+
+  <h2 id="varsler">Varsler</h2>
+  <p>Appen kan gi deg beskjed når Hagefugltellingen starter, og når du vinner en premie på ledertavlen. Varslene er på fra start når du sier ja til at appen kan sende varsler, og du kan slå hver type av i Innstillinger → Varsler. Sier du nei, eller slår du av begge, lagres ingenting.</p>
+  <table class="tabell">
+    <thead><tr><th>Hva</th><th>Innhold</th><th>Hvem kan se det</th></tr></thead>
+    <tbody>
+      <tr><td>Varsel-adressen</td><td data-t="Innhold">Adressen og nøklene nettleseren lager for varsler til telefonen. Den sier ikke hvem du er</td><td data-t="Hvem kan se det">Bare vi</td></tr>
+      <tr><td>Valgene</td><td data-t="Innhold">Hvilke varsler du vil ha, om du bruker den enkle versjonen, om det er Play-appen eller nettversjonen, og når appen sist meldte seg</td><td data-t="Hvem kan se det">Bare vi</td></tr>
+      <tr><td>Koblingen til brukeren</td><td data-t="Innhold">Bare når du deler: den anonyme brukeren, så premievarslene kommer til riktig telefon</td><td data-t="Hvem kan se det">Bare vi</td></tr>
+      <tr><td>Varslene</td><td data-t="Innhold">Teksten i hvert varsel, når det ble sendt og om det kom fram</td><td data-t="Hvem kan se det">Bare vi</td></tr>
+    </tbody>
+  </table>
+  <p>Varslene leveres av varseltjenesten til nettleseren eller telefonen: Google for Android og Chrome, Apple for iPhone, Mozilla for Firefox og Microsoft for Edge. Innholdet er kryptert, så de kan ikke lese det. Grunnlaget er samtykket ditt (personvernforordningen artikkel 6 nr. 1 bokstav a), som du gir når du sier ja til varsler, og trekker tilbake når du slår dem av.</p>
 
   <h2 id="bestillingslisten">Bestillingslisten for kortstokken</h2>
   <p>Setter du deg på listen for kortstokken på hagefugler.no, lagres dette i databasen vår:</p>
@@ -82,6 +95,7 @@
     <li><b>Supabase</b> (Supabase Inc.) driver databasen, den anonyme innloggingen og bestillingslisten, som databehandler etter en databehandleravtale. Dataene lagres i EU, i Supabase sitt datasenter i Irland. Supabase lagrer også tekniske logger over forespørslene, med blant annet IP-adresse og tidspunkt. Loggene slettes automatisk etter ett døgn.</li>
     <li><b>GitHub</b> (GitHub Inc.) driver nettstedene hagefugler.no, fuglekort.no og jakob-byte-2d.github.io, og ser IP-adressen din når appen og sidene hentes. Se <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHubs personvernerklæring</a>.</li>
     <li><b>Google</b> (Google Gmail og Google Apps Script) sender bekreftelsen på e-post når du setter deg på bestillingslisten, fra kontoen post.fuglekort@gmail.com.</li>
+    <li><b>Varseltjenestene</b> til Google, Apple, Mozilla og Microsoft leverer varslene, kryptert, se <a href="#varsler">Varsler</a>.</li>
     <li><b>Google Play</b> står for installasjon og oppdatering av Play-appen, etter Googles egne vilkår. Vi får bare samlede tall fra Google, som antall installasjoner.</li>
   </ul>
   <p>Supabase og GitHub er amerikanske selskaper. Databehandleravtalen med Supabase inneholder EUs standardavtaler. Kan opplysninger bli overført til USA, skjer det etter EUs standardavtaler eller EU–USA-rammeverket for personvern (Data Privacy Framework). Vi selger ikke data, og vi deler dem ikke med andre.</p>
@@ -92,6 +106,7 @@
     <li>Premielistene beholder plassen, frøene og premien, men uten navn og uten kobling til deg.</li>
     <li>Et brukernavn som er sperret etter rapporter, blir stående uten kobling til noen.</li>
     <li>De tekniske loggene hos Supabase slettes automatisk, se over.</li>
+    <li>Varsel-adressen slettes når du slår av varslene, når telefonen slutter å ta imot dem, og ellers etter et år uten at appen har meldt seg. Varslene som er sendt, slettes etter 30 dager. Sletter du deg fra ledertavlen, fjernes koblingen til brukeren.</li>
   </ul>
   <p>Avinstallerer du appen uten å slette deg først, ligger dataene der til du ber oss slette dem (se <a href="#slett">Slik sletter du dataene dine</a>).</p>
 
@@ -115,6 +130,7 @@
   <h2 id="slett">Slik sletter du dataene dine</h2>
   <ul>
     <li><b>I appen:</b> Innstillinger → Ledertavle og statistikk → «Slett meg fra ledertavlen». Alt du har delt, slettes med en gang, eller så snart du har nett.</li>
+    <li><b>Varsler:</b> Innstillinger → Varsler. Slår du av begge, slettes varsel-adressen med en gang. Slår du av varsler for appen i telefonens innstillinger, slettes den neste gang du åpner appen.</li>
     <li><b>En av flere brukere på telefonen:</b> Innstillinger → Brukere på denne telefonen → Slett.</li>
     <li><b>Uten appen,</b> for eksempel etter at du har avinstallert den: send e-post til <a href="mailto:post.fuglekort@gmail.com?subject=Slett%20meg">post.fuglekort@gmail.com</a> med emnet «Slett meg» og brukernavnet ditt. Vi sletter innen 30 dager og svarer når det er gjort.</li>
     <li><b>Bestillingslisten:</b> send e-post til <a href="mailto:post.fuglekort@gmail.com?subject=Meld%20meg%20av">post.fuglekort@gmail.com</a> med emnet «Meld meg av» fra e-postadressen du meldte deg på med. Vi sletter påmeldingen innen 30 dager og svarer når det er gjort.</li>
