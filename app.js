@@ -120,3 +120,8 @@ addEventListener('hashchange',()=>openDetails(location.hash.slice(1)));
 {const guide=document.querySelector('#app-guide'),ua=navigator.userAgent;
  const telefon=/iPhone|iPod/.test(ua)||(/Android/.test(ua)&&/Mobile/.test(ua));
  document.querySelector('#app-link')?.addEventListener('click',e=>{if(!telefon||!guide)return;e.preventDefault();showDialog(guide)})}
+
+/* hagefugler.no/#bestill (lenken «Få kortene i postkassen» i appen): bestillingslisten åpnes med en gang, som om man
+   trykket «Sett deg på listen». Adressen ryddes, så tilbake og ny lasting ikke åpner den igjen. */
+{const bestill=()=>{if(location.hash!=='#bestill')return;history.replaceState(null,'',location.pathname+location.search);document.querySelector('[data-order]')?.click()};
+ addEventListener('hashchange',bestill);bestill()}
