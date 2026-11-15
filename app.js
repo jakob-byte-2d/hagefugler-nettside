@@ -1,8 +1,8 @@
-import './hagefugler-box.js?v=8';
+import './hagefugler-box.js?v=9';
 const box=document.querySelector('hagefugler-box');
 const viewer=document.querySelector('#viewer'),order=document.querySelector('#order');
 let cards=[],current=0;
-const editionNames={photos:'Ekte bilder',illustrations:'Tegneseriefugler'};
+const editionNames={photos:'Ekte bilder',illustrations:'Illustrasjoner'};
 function showDialog(el){if(!el.open){el.showModal();document.body.classList.add('modal-open')}}
 function showCard(i){if(!cards.length)return;current=(i+cards.length)%cards.length;const c=cards[current];document.querySelector('#large-card').src=c.image;document.querySelector('#large-card').alt=`${c.name} – ${editionNames[box.edition]}`;document.querySelector('#card-counter').textContent=`${c.name} · ${String(current+1).padStart(2,'0')} / ${cards.length} · ${editionNames[box.edition]}`;showDialog(viewer)}
 box.addEventListener('cards-ready',e=>{cards=e.detail.slice(0,5);const rail=document.querySelector('#card-rail');rail.replaceChildren();cards.forEach((c,i)=>{const b=document.createElement('button');b.className='card-tile';b.setAttribute('aria-label',`Se ${c.name}`);b.innerHTML=`<img src="${c.image}" alt="${c.name}" loading="lazy" width="${c.width}" height="${c.height}"><span class="card-label"><span>${c.name}</span><small>${c.number} ↗</small></span>`;b.addEventListener('click',()=>showCard(i));rail.append(b)});
@@ -17,12 +17,21 @@ box.addEventListener('inspect-card',e=>showCard(e.detail.index));
 function placeBox(){box.style.setProperty('--above',`${Math.round(box.getBoundingClientRect().top+scrollY)}px`)}placeBox();addEventListener('resize',placeBox);
 document.querySelector('#explore')?.addEventListener('click',()=>{box.toggle(true);if(innerWidth<760)box.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth',block:'center'})});
 document.querySelectorAll('[data-order]').forEach(b=>b.addEventListener('click',()=>showDialog(order)));
-document.querySelectorAll('dialog').forEach(d=>{d.querySelector('[data-close]').addEventListener('click',()=>d.close());d.addEventListener('close',()=>{document.body.classList.remove('modal-open')});d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close()}})});
+document.querySelectorAll('dialog').forEach(d=>{d.querySelector('[data-close]').addEventListener('click',()=>d.close());d.addEventListener('close',()=>{if(!document.querySelector('dialog[open]'))document.body.classList.remove('modal-open')});d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close()}})});
 viewer.querySelector('.prev').addEventListener('click',()=>showCard(current-1));viewer.querySelector('.next').addEventListener('click',()=>showCard(current+1));
 viewer.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){e.preventDefault();showCard(current-1)}if(e.key==='ArrowRight'){e.preventDefault();showCard(current+1)}});
 let tx=null;viewer.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});viewer.addEventListener('touchend',e=>{if(tx!==null&&Math.abs(e.changedTouches[0].clientX-tx)>45)showCard(current+(e.changedTouches[0].clientX<tx?1:-1));tx=null},{passive:true});
 const rail=document.querySelector('#card-rail');for(const [id,dir] of [['scroll-left',-1],['scroll-right',1]])document.getElementById(id).addEventListener('click',()=>rail.scrollBy({left:dir*rail.clientWidth*.75,behavior:'smooth'}));
 document.querySelector('#back-explore').addEventListener('click',()=>{order.close();showCard(current)});
+/* Bestillingen: smakebiter av hver versjon. Trykk åpner den store visningen oppå bestillingen. */
+function openPreview(edition,i){current=i;if(box.edition!==edition)box.setEdition(edition);showCard(i)}
+fetch('assets/cards.json').then(r=>r.json()).then(list=>{
+ document.querySelectorAll('[data-preview]').forEach(el=>{const ed=el.dataset.preview,name=editionNames[ed].toLowerCase();
+  const thumbs=document.createElement('div');thumbs.className='preview-thumbs';
+  list.slice(0,5).forEach((c,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',`Se ${c.name} med ${name}`);
+   b.innerHTML=`<img src="assets/thumbs/${c.variants[ed].split('/').pop()}" alt="" loading="lazy" width="180" height="252">`;b.addEventListener('click',()=>openPreview(ed,i));thumbs.append(b)});
+  const link=document.createElement('button');link.type='button';link.className='preview-link';link.innerHTML='Se smakebiter <span aria-hidden="true">↗</span>';link.setAttribute('aria-label',`Se smakebiter med ${name}`);link.addEventListener('click',()=>openPreview(ed,0));
+  el.replaceChildren(thumbs,link)})});
 
 /* Bestillingslisten: påmeldingen lagres i Supabase (tabellen i supabase/forhandsbestillinger.sql).
    Nettsiden kan bare legge inn påmeldinger og hente tellertallene, aldri lese navn, e-post eller mobil. */
@@ -36,7 +45,7 @@ const delivery=()=>form.elements.levering.value;
 const counts={photos:0,illustrations:0};let touched=false;
 const total=()=>counts.photos+counts.illustrations;
 const rows=[...document.querySelectorAll('.version-row')];
-function chosen(c){const p=[];if(c.photos)p.push(`${c.photos} med ekte bilder`);if(c.illustrations)p.push(`${c.illustrations} med tegneseriefugler`);return p.join(' og ')}
+function chosen(c){const p=[];if(c.photos)p.push(`${c.photos} med ekte bilder`);if(c.illustrations)p.push(`${c.illustrations} med illustrasjoner`);return p.join(' og ')}
 function showCounts(){rows.forEach(r=>{const n=counts[r.dataset.version];r.querySelector('output').textContent=n;r.querySelector('[data-step="-1"]').disabled=n===0;r.querySelector('[data-step="1"]').disabled=n===MAX});updateTotal()}
 function startCounts(){counts.photos=box.edition==='illustrations'?0:1;counts.illustrations=box.edition==='illustrations'?1:0;touched=false;showCounts()}
 rows.forEach(r=>r.querySelectorAll('[data-step]').forEach(b=>b.addEventListener('click',()=>{const k=r.dataset.version;counts[k]=Math.max(0,Math.min(MAX,counts[k]+Number(b.dataset.step)));touched=true;showCounts();if(total())formError.hidden=true})));
@@ -56,7 +65,7 @@ function countRow(name,n,goal){const row=document.createElement('div');row.class
  const label=document.createElement('strong');label.textContent=name;
  const bar=document.createElement('div');bar.className='progress-bar';bar.setAttribute('role','progressbar');bar.setAttribute('aria-label',`Bestilt med ${name.toLowerCase()}`);bar.setAttribute('aria-valuemin','0');bar.append(document.createElement('span'));fillBar(bar,n,goal);
  const small=document.createElement('small');small.textContent=counted(n,goal);row.append(label,bar,small);return row}
-const versionCounts=s=>[['Ekte bilder',Number(s.foto)||0,'antall_foto'],['Tegneseriefugler',Number(s.illustrasjoner)||0,'antall_illustrasjoner']];
+const versionCounts=s=>[['Ekte bilder',Number(s.foto)||0,'antall_foto'],['Illustrasjoner',Number(s.illustrasjoner)||0,'antall_illustrasjoner']];
 /* Forsiden: en versjon vises først når den har minst SHOW_FROM bestilte kortstokker */
 function renderHero(s){const box=document.querySelector('#hero-progress'),goal=Number(s.mal)||GOAL;
  const items=versionCounts(s).filter(([,n])=>n>=SHOW_FROM);

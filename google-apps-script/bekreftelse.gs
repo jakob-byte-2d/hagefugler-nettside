@@ -42,7 +42,7 @@ function lagEpost(r) {
   const fornavn = String(r.navn || '').trim().split(/\s+/)[0] || 'du';
   const varer = [];
   if (foto) varer.push(['Ekte bilder', `${foto} × ${kr(PRIS)}`, kr(foto * PRIS)]);
-  if (teg) varer.push(['Tegneseriefugler', `${teg} × ${kr(PRIS)}`, kr(teg * PRIS)]);
+  if (teg) varer.push(['Illustrasjoner', `${teg} × ${kr(PRIS)}`, kr(teg * PRIS)]);
   const fraktRad = post ? ['Frakt', 'Sendes i posten', kr(FRAKT)] : ['Henting i Oslo', 'Ingen frakt', kr(0)];
   // hagefugler.no spør ikke om adressen ved påmelding (den spørres om når det blir trykk); fuglekort.no gjør det fortsatt
   const levering = !post
